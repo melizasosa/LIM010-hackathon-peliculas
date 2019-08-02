@@ -136,7 +136,6 @@ const paintAno = (listMovie) => {
   return listAgeShort;
 };
 
-
 // Funcion para pintar los años en el combobox
 const paintListAno = (data, container) => {
   let template = '';
@@ -145,7 +144,6 @@ const paintListAno = (data, container) => {
   }
   container.innerHTML = template;
 };
-
 
 // Función de filtrar por tipo
 const filterAge = (allListMovie, ageEstren) => {
