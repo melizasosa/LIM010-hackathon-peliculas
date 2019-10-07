@@ -34,14 +34,16 @@ const objMovies = ['Captain America: The First Avenger', 'Iron Man', 'The Incred
 let aux = [];
 let movie;
 for (let i = 0; i < objMovies.length; i++) {
-  movie = `http://www.omdbapi.com/?t=${encodeURI(objMovies[i])}&apikey=1aca2bd9`;
+  movie = `https://www.omdbapi.com/?t=${encodeURI(objMovies[i])}&apikey=1aca2bd9`;
   fetch(movie)
     .then(response => response.json())
     .then(data => {
       localStorage.setItem('data', JSON.stringify(data))
       aux.push(data);
       allMovies.innerHTML = showMovies(aux);
- 
+      /*inicio.addEventListener('click', () =>{
+        allMovies.innerHTML = showMovies(aux);
+      });*/
      
       //Funciónes para filtar por Fase
       phase1.addEventListener('click', () => {
@@ -72,14 +74,13 @@ for (let i = 0; i < objMovies.length; i++) {
       spider.addEventListener('click', () => {
         allMovies.innerHTML = showMovies(filterForSaga(aux,'Spider-Man'));
       });
-
       // Funcion para mostrar los tipos
      const anoEstreno=paintAno(aux);
      paintListAno(anoEstreno, selectAnoEstreno);
      // Funcion de prueba para botones de año
      const selectMenuAge=document.getElementById("select-age");
      selectMenuAge.addEventListener('click', () => {
-        paintListAno(anoEstreno, allMovies);
+      paintListAno(anoEstreno, allMovies);
      });
     })
     .catch(err => (err))
@@ -106,8 +107,6 @@ const showMovies = (aux) => {
   return (viewMovie);
 };
 
-console.log(showMovies(aux));
-
 const searchMoviesByName = (dataAllMovies, letter) => {
     return dataAllMovies.filter(objeto => objeto.Title.toLowerCase().startsWith(letter));
   };
@@ -115,9 +114,6 @@ const searchMoviesByName = (dataAllMovies, letter) => {
     const movieSought = searchMoviesByName(aux, event.target.value.toLowerCase());
     allMovies.innerHTML = showMovies(movieSought);
   });
-
-
-
 // Funcion para pintar  los años
 const paintAno = (listMovie) => {
   let newData = [];
@@ -129,14 +125,16 @@ const paintAno = (listMovie) => {
   return listAgeShort;
 };
 
+
 // Funcion para pintar los años en el combobox
 const paintListAno = (data, container) => {
   let template = '';
   for (let i = 0; i < data.length; i++) { 
-    template += `<button type="sumit" onclick="anio(${data[i]})" id="${data[i]}" value="${data[i]}"> ${data[i].toUpperCase()}</button>`;    
+    template += `<div class="button"><button class="btn btn-info" type="sumit" onclick="anio(${data[i]})" id="${data[i]}" value="${data[i]}"> ${data[i].toUpperCase()}</button><div>`;    
   }
   container.innerHTML = template;
 };
+
 
 // Función de filtrar por tipo
 const filterAge = (allListMovie, ageEstren) => {
